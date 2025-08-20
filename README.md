@@ -1,7 +1,7 @@
 # Crypto ML Pipeline (Binance, Windows Version)
 ## 🚀 Quickstart
 
-### 0) Chuẩn bị môi trường Python
+### 1) Chuẩn bị môi trường Python
 Yêu cầu Python 3.9+
 
 ```bat
@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ---
 
-### 1) Tải dữ liệu lịch sử (klines → Parquet)
+### 2) Tải dữ liệu lịch sử (klines → Parquet)
 Chạy file batch:  
 ```bat
 scripts\run_fetch_klines.bat
@@ -25,7 +25,7 @@ data\klines\symbol=BTCUSDT\interval=1h\date=2023-01-01\*.parquet
 
 ---
 
-### 2) Stream realtime klines (JSONL)
+### 3) Stream realtime klines (JSONL)
 ```bat
 scripts\run_stream_ws.bat
 ```
@@ -37,7 +37,7 @@ data\stream\btc_kline_1m.jsonl
 
 ---
 
-### 3) Xây dựng features từ Parquet
+### 4) Xây dựng features từ Parquet
 ```bat
 scripts\run_features.bat
 ```
@@ -49,7 +49,7 @@ data\features\BTCUSDT_1h.parquet
 
 ---
 
-### 4) Huấn luyện mô hình
+### 5) Huấn luyện mô hình
 ```bat
 scripts\run_train_model.bat
 ```
@@ -61,44 +61,13 @@ models\rf_btcusdt_1h.joblib
 
 ---
 
-### 5) Dự đoán (batch) với model đã lưu
+### 6) Dự đoán (batch) với model đã lưu
 ```bat
 python src\train_model.py --predict ^
   --features data\features\BTCUSDT_1h.parquet ^
   --model-in models\rf_btcusdt_1h.joblib ^
   --pred-out data\predictions\BTCUSDT_1h.csv
 ```
-
----
-
-## 📂 Project layout (Windows version)
-
-```
-crypto-ml-pipeline-binance-windows/
-├── data/               # output (tự tạo khi chạy)
-│   ├── klines/
-│   ├── stream/
-│   ├── features/
-│   └── predictions/
-├── models/             # saved models
-├── scripts/            # batch files & hướng dẫn Task Scheduler
-│   ├── run_fetch_klines.bat
-│   ├── run_stream_ws.bat
-│   ├── run_features.bat
-│   ├── run_train_model.bat
-│   └── scheduler_instructions.md
-├── src/                # source code chính
-│   ├── fetch_klines.py
-│   ├── stream_ws.py
-│   ├── features.py
-│   ├── train_model.py
-│   ├── storage.py
-│   ├── binance_ws.py
-│   └── utils.py
-├── requirements.txt
-└── README.md
-```
-
 ---
 
 ## ⏰ Scheduling trên Windows
