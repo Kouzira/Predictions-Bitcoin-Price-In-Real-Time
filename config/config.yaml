@@ -1,0 +1,5 @@
+# Default config values; CLI args override these.
+base_url: "https://api.binance.com"
+ws_url: "wss://stream.binance.com:9443"
+rate_limit_sleep_secs: 1.0   # sleep when hitting limits
+parquet_row_group_size: 50000
